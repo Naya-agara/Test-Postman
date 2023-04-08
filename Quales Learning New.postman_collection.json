@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "be0ec070-72fa-4813-b597-2b91d3f828b9",
+		"name": "Quales Learning New",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25919566"
+	},
+	"item": [
+		{
+			"name": "Create Coruse",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonResponse = pm.response.json();",
+							"pm.globals.set(\"courseId\", jsonResponse.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Chinnaya Testing\",\n    \"categoryId\": 2,\n    \"description\": \"Intro to Postman\",\n    \"courseUrl\": \"https://www.youtube.com/watch?v=8vXoMqWgbQQ\",\n    \"imageUrl\": \"https://source.unsplash.com/user/c_v_r/900x800\",\n    \"location\": \"online\",\n    \"isPremium\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/courses/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Courses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches correct course Id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"26\");",
+							"pm.test(\"Body matches correct couse title\", function () {",
+							"",
+							"});",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/courses/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Course",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Body matches correct course description \", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Intro to Postman\");",
+							"});",
+							"pm.test(\"Body matches correct course location\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"online\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/courses/{{courseId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						"{{courseId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Course",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Body matches correct course category\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"1\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 232,\n    \"title\": \"Chinnaya Testing Updated\",\n    \"categoryId\": \"2\",\n    \"description\": \"Intro to Postman\",\n    \"imageUrl\": \"https://source.unsplash.com/user/c_v_r/900x800\",\n    \"isPremium\": false,\n    \"location\": \"online\",\n    \"imageurl\": \"https://source.unsplash.com/user/c_v_r/900x800\",\n    \"courseUrl\": \"https://www.youtube.com/watch?v=8vXoMqWgbQQ\",\n    \"createdAt\": \"2023-04-05T13:29:42.000000Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/courses/{{courseId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						"{{courseId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Course",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/courses/{{courseId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"courses",
+						"{{courseId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
